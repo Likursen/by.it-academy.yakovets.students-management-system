@@ -16,13 +16,14 @@ public class StudentPageTest extends BaseTest {
         Assert.assertTrue(studentsPage.isTitlesFirstNameDisplayed());
         Assert.assertTrue(studentsPage.isTitlesLastNameDisplayed());
         Assert.assertTrue(studentsPage.isTitlesEmailDisplayed());
+        Assert.assertTrue(studentsPage.isActionDisplayed());
         Assert.assertTrue(studentsPage.isStudentUpdateButtonDisplayed(verifyStudentNumber));
         Assert.assertTrue(studentsPage.isStudentDeleteButtonDisplayed(verifyStudentNumber));
     }
 
     @Test
     public void studentDeleteTest() {
-        int numberOfDeletedStudent = 1;
+        int numberOfDeletedStudent = 2;
         StudentsPage studentsPage = new StudentsPage().openPage();
         Student copyOfDeletedStudent = studentsPage.getStudentByNumber(numberOfDeletedStudent);
 

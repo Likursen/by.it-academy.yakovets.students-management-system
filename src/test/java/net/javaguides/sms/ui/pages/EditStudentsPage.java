@@ -35,23 +35,23 @@ public class EditStudentsPage extends BasePage {
     }
 
     public boolean isHeaderPageDisplayed() {
-        return headerPage.isDisplayed();
+        return isElementDisplayed(headerPage);
     }
 
     public boolean isLabelsFirstNameDisplayed() {
-        return labelsFirstName.isDisplayed();
+        return isElementDisplayed(labelsFirstName);
     }
 
     public boolean isLabelsLastNameDisplayed() {
-        return labelsLastName.isDisplayed();
+        return isElementDisplayed(labelsLastName);
     }
 
     public boolean isLabelsEmailDisplayed() {
-        return labelsEmail.isDisplayed();
+        return isElementDisplayed(labelsEmail);
     }
 
     public boolean isButtonSubmitFormDisplayed() {
-        return buttonSubmitForm.isDisplayed();
+        return isElementDisplayed(buttonSubmitForm);
     }
 
     public EditStudentsPage typeFirstName(String firstName) {

@@ -1,7 +1,6 @@
 package net.javaguides.sms.ui.pages;
 
 import net.javaguides.sms.ui.object.Student;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -29,25 +28,31 @@ public class StudentsPage extends BasePage {
     @FindBy(xpath = "//table[@class='table table-striped table-bordered']//th[4]")
     private WebElement titlesAction;
 
+    @FindBy(xpath = "//table[@class='table table-striped table-bordered']/tbody/tr")
+    private List<WebElement> items;
+
     public StudentsPage openPage() {
         webDriver.get(baseUrl);
         return this;
     }
 
     public boolean isHeaderPageDisplayed() {
-        return headerPage.isDisplayed();
+        return isElementDisplayed(headerPage);
     }
 
     public boolean isTitlesFirstNameDisplayed() {
-        return titlesFirstName.isDisplayed();
+        return isElementDisplayed(titlesFirstName);
     }
 
     public boolean isTitlesLastNameDisplayed() {
-        return titlesLastName.isDisplayed();
+        return isElementDisplayed(titlesLastName);
     }
 
     public boolean isTitlesEmailDisplayed() {
-        return titlesEmail.isDisplayed();
+        return isElementDisplayed(titlesEmail);
+    }
+    public boolean isActionDisplayed() {
+        return isElementDisplayed(titlesAction);
     }
 
     public CreateStudentPage clickAddStudent() {
@@ -96,8 +101,7 @@ public class StudentsPage extends BasePage {
     }
 
     private List<StudentItem> getStudentItems() {
-        return webDriver.findElements(StudentItem.STUDENT_ITEM)
-                .stream()
+        return items.stream()
                 .map(StudentItem::new)
                 .collect(Collectors.toList());
     }
@@ -110,17 +114,25 @@ public class StudentsPage extends BasePage {
         throw new RuntimeException("not found");
     }
 
-    private static class StudentItem {
-        private static final By STUDENT_ITEM = By.xpath("//table[@class='table table-striped table-bordered']/tbody/tr");
-        private final WebElement studentInfo;
-        private final By firstName = By.xpath("./td[1]");
-        private final By lastName = By.xpath("./td[2]");
-        private final By email = By.xpath("./td[3]");
-        private final By buttonUpdate = By.xpath("./td[4]/a[@class='btn btn-primary']");
-        private final By buttonDelete = By.xpath("./td[4]/a[@class='btn btn-danger']");
+    private static class StudentItem extends BasePage {
+
+        @FindBy(xpath = "./td[1]")
+        private WebElement firstName;
+
+        @FindBy(xpath = "./td[2]")
+        private WebElement lastName;
+
+        @FindBy(xpath = "./td[3]")
+        private WebElement email;
+
+        @FindBy(xpath = "./td[4]/a[@class='btn btn-primary']")
+        private WebElement buttonUpdate;
+
+        @FindBy(xpath = "./td[4]/a[@class='btn btn-danger']")
+        private WebElement buttonDelete;
 
         public StudentItem(WebElement student) {
-            studentInfo = student;
+            super(student);
         }
 
         private Student generateStudent() {
@@ -131,38 +143,31 @@ public class StudentsPage extends BasePage {
         }
 
         private String getFirstName() {
-            return studentInfo.findElement(firstName)
-                    .getText();
+            return firstName.getText();
         }
 
         private String getLastName() {
-            return studentInfo.findElement(lastName)
-                    .getText();
+            return lastName.getText();
         }
 
         private String getEmail() {
-            return studentInfo.findElement(email)
-                    .getText();
+            return email.getText();
         }
 
         private void clickUpdate() {
-            studentInfo.findElement(buttonUpdate)
-                    .click();
+            buttonUpdate.click();
         }
 
         private void clickDelete() {
-            studentInfo.findElement(buttonDelete)
-                    .click();
+            buttonDelete.click();
         }
 
         private boolean isButtonUpdateDisplayed() {
-            return studentInfo.findElement(buttonUpdate)
-                    .isDisplayed();
+            return isElementDisplayed(buttonUpdate);
         }
 
         private boolean isButtonDeleteDisplayed() {
-            return studentInfo.findElement(buttonDelete)
-                    .isDisplayed();
+            return isElementDisplayed(buttonDelete);
         }
     }
 }

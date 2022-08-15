@@ -1,17 +1,22 @@
 package net.javaguides.sms.ui.pages;
 
 import net.javaguides.sms.ui.webDriver.WebDriverSingleton;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.List;
+import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 
 public abstract class BasePage {
-    WebDriver webDriver = WebDriverSingleton.getWebDriver();
+    protected WebDriver webDriver = WebDriverSingleton.getWebDriver();
 
-    protected BasePage() {
+    public BasePage() {
         PageFactory.initElements(webDriver, this);
+    }
+
+    protected BasePage(SearchContext context) {
+        PageFactory.initElements(new DefaultElementLocatorFactory(context), this);
     }
 
     protected void clearAndTypeToField(WebElement field, String text) {
@@ -19,5 +24,11 @@ public abstract class BasePage {
         field.sendKeys(text);
     }
 
-
+    protected boolean isElementDisplayed(WebElement webElement) {
+        try {
+            return webElement.isDisplayed();
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
+    }
 }
