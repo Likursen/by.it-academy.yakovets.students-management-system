@@ -2,6 +2,7 @@ package net.javaguides.sms.ui.pages;
 
 import net.javaguides.sms.ui.object.Student;
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -35,19 +36,23 @@ public class StudentsPage extends BasePage {
     }
 
     public boolean isHeaderPageDisplayed() {
-        return headerPage.isDisplayed();
+        return isElementDisplayed(headerPage);
     }
 
     public boolean isTitlesFirstNameDisplayed() {
-        return titlesFirstName.isDisplayed();
+        return isElementDisplayed(titlesFirstName);
     }
 
     public boolean isTitlesLastNameDisplayed() {
-        return titlesLastName.isDisplayed();
+        return isElementDisplayed(titlesLastName);
     }
 
     public boolean isTitlesEmailDisplayed() {
-        return titlesEmail.isDisplayed();
+        return isElementDisplayed(titlesEmail);
+    }
+
+    public boolean isTitleActionDisplayed() {
+        return isElementDisplayed(titlesAction);
     }
 
     public CreateStudentPage clickAddStudent() {
@@ -110,17 +115,16 @@ public class StudentsPage extends BasePage {
         throw new RuntimeException("not found");
     }
 
-    private static class StudentItem {
+    private static class StudentItem extends BasePage {
         private static final By STUDENT_ITEM = By.xpath("//table[@class='table table-striped table-bordered']/tbody/tr");
-        private final WebElement studentInfo;
         private final By firstName = By.xpath("./td[1]");
         private final By lastName = By.xpath("./td[2]");
         private final By email = By.xpath("./td[3]");
         private final By buttonUpdate = By.xpath("./td[4]/a[@class='btn btn-primary']");
         private final By buttonDelete = By.xpath("./td[4]/a[@class='btn btn-danger']");
 
-        public StudentItem(WebElement student) {
-            studentInfo = student;
+        public StudentItem(SearchContext context) {
+            super(context);
         }
 
         private Student generateStudent() {
@@ -131,38 +135,36 @@ public class StudentsPage extends BasePage {
         }
 
         private String getFirstName() {
-            return studentInfo.findElement(firstName)
+            return findElement(firstName)
                     .getText();
         }
 
         private String getLastName() {
-            return studentInfo.findElement(lastName)
+            return findElement(lastName)
                     .getText();
         }
 
         private String getEmail() {
-            return studentInfo.findElement(email)
+            return findElement(email)
                     .getText();
         }
 
         private void clickUpdate() {
-            studentInfo.findElement(buttonUpdate)
+            findElement(buttonUpdate)
                     .click();
         }
 
         private void clickDelete() {
-            studentInfo.findElement(buttonDelete)
+            findElement(buttonDelete)
                     .click();
         }
 
         private boolean isButtonUpdateDisplayed() {
-            return studentInfo.findElement(buttonUpdate)
-                    .isDisplayed();
+            return isElementDisplayed(buttonUpdate);
         }
 
         private boolean isButtonDeleteDisplayed() {
-            return studentInfo.findElement(buttonDelete)
-                    .isDisplayed();
+            return isElementDisplayed(buttonDelete);
         }
     }
 }

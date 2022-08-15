@@ -23,7 +23,9 @@ public class WebDriverSingleton {
     }
 
     public static void driverQuit() {
-        webDriver.quit();
-        webDriver = null;
+        if (webDriver != null) {
+            webDriver.quit();
+            webDriver = null;
+        }
     }
 }

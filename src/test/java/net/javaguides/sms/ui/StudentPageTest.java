@@ -16,6 +16,7 @@ public class StudentPageTest extends BaseTest {
         Assert.assertTrue(studentsPage.isTitlesFirstNameDisplayed());
         Assert.assertTrue(studentsPage.isTitlesLastNameDisplayed());
         Assert.assertTrue(studentsPage.isTitlesEmailDisplayed());
+        Assert.assertTrue(studentsPage.isTitleActionDisplayed());
         Assert.assertTrue(studentsPage.isStudentUpdateButtonDisplayed(verifyStudentNumber));
         Assert.assertTrue(studentsPage.isStudentDeleteButtonDisplayed(verifyStudentNumber));
     }
