@@ -1,5 +1,6 @@
 package net.javaguides.sms.ui;
 
+import net.javaguides.sms.utils.Utils;
 import net.javaguides.sms.ui.object.Student;
 import net.javaguides.sms.ui.pages.CreateStudentPage;
 import net.javaguides.sms.ui.pages.StudentsPage;
@@ -22,7 +23,7 @@ public class CreateStudentPageTest extends BaseTest {
 
     @Test
     public void createStudentsTest() {
-        Student student = new Student("Ivan", "Ivanov", "Ivanov@mail.com");
+        Student student = new Student(Utils.generateRandomSting(), Utils.generateRandomSting(), Utils.generateRandomSting());
 
         StudentsPage studentsPage = new StudentsPage().openPage()
                 .clickAddStudent()

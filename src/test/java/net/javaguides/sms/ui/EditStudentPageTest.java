@@ -1,5 +1,6 @@
 package net.javaguides.sms.ui;
 
+import net.javaguides.sms.utils.Utils;
 import net.javaguides.sms.ui.object.Student;
 import net.javaguides.sms.ui.pages.EditStudentsPage;
 import net.javaguides.sms.ui.pages.StudentsPage;
@@ -23,7 +24,7 @@ public class EditStudentPageTest extends BaseTest {
 
     @Test
     public void editStudentTest() {
-        Student student = new Student("Ivan2", "Ivanov2", "Ivanov2@mail.com");
+        Student student = new Student(Utils.generateRandomSting(), Utils.generateRandomSting(), Utils.generateRandomSting());
         int editStudentNumber = 1;
         StudentsPage studentsPage = new StudentsPage().openPage();
         Student notEditStudent = studentsPage.getStudentByNumber(editStudentNumber);

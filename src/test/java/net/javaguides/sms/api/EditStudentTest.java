@@ -1,5 +1,6 @@
 package net.javaguides.sms.api;
 
+import net.javaguides.sms.utils.Utils;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.baseURI;
@@ -11,9 +12,9 @@ public class EditStudentTest {
         baseURI = "http://localhost:8080";
 
         given()
-                .queryParam("firstName", "newFirstName")
-                .queryParam("lastName", "newLastName")
-                .queryParam("email", "newRandomEmail@mail.com")
+                .queryParam("firstName", Utils.generateRandomSting())
+                .queryParam("lastName", Utils.generateRandomSting())
+                .queryParam("email", Utils.generateRandomSting())
                 .patch("/students/1")
                 .then()
                 .statusCode(302);

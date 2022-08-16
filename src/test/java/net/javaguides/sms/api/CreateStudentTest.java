@@ -1,5 +1,6 @@
 package net.javaguides.sms.api;
 
+import net.javaguides.sms.utils.Utils;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.baseURI;
@@ -12,9 +13,9 @@ public class CreateStudentTest {
         baseURI = "http://localhost:8080";
 
         given()
-                .queryParam("firstName", "sdvsddsv")
-                .queryParam("lastName", "dsdsdf")
-                .queryParam("email", "sdfdsfsdf")
+                .queryParam("firstName", Utils.generateRandomSting())
+                .queryParam("lastName", Utils.generateRandomSting())
+                .queryParam("email", Utils.generateRandomSting())
                 .post("/students")
                 .then()
                 .statusCode(302);
